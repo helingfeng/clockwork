@@ -206,8 +206,7 @@ class ClockworkSupport
 
 	public function handleOctaneEvents()
 	{
-		$this->app['events']->listen(\Laravel\Octane\Events\RequestReceived::class, function ($event) {
-			$this->app = $event->sandbox;
+		$this->app['events']->listen('swoole.request', function () {
 			$this->incomingRequest = null;
 
 			$this->app->forgetInstance('clockwork.request');
@@ -538,7 +537,7 @@ class ClockworkSupport
 	public function isCollectingRequests()
 	{
 		return ($this->isEnabled() || $this->getConfig('collect_data_always', false))
-			&& ! $this->app->runningInConsole()
+			// && ! $this->app->runningInConsole()
 			&& $this->app['clockwork']->shouldCollect()->filter($this->incomingRequest());
 	}
 
