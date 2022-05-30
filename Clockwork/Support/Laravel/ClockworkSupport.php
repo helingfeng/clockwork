@@ -204,7 +204,7 @@ class ClockworkSupport
 		return $this->app['clockwork.laravel'];
 	}
 
-	public function handleOctaneEvents()
+	public function handleSwooleEvents()
 	{
 		$this->app['events']->listen('swoole.request', function () {
 			$this->incomingRequest = null;
@@ -650,12 +650,12 @@ class ClockworkSupport
 	{
 		if ($this->incomingRequest) return $this->incomingRequest;
 
-		return $this->incomingRequest = new IncomingRequest([
-			'method'  => $this->app['request']->getMethod(),
-			'uri'     => $this->app['request']->getRequestUri(),
-			'input'   => $this->app['request']->input(),
-			'cookies' => $this->app['request']->cookie()
-		]);
+        return $this->incomingRequest = new IncomingRequest([
+            'method'  => request()->getMethod(),
+            'uri'     => request()->getRequestUri(),
+            'input'   => request()->input(),
+            'cookies' => request()->cookie()
+        ]);
 	}
 
 	// Return an array of web ui paths

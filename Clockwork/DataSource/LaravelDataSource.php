@@ -44,6 +44,8 @@ class LaravelDataSource extends DataSource
 	// Adds request, response information, middleware, routes, session data, user and log entries to the request
 	public function resolve(Request $request)
 	{
+        $this->setApplication(app());
+
 		$request->method         = $this->getRequestMethod();
 		$request->url            = $this->getRequestUrl();
 		$request->uri            = $this->getRequestUri();

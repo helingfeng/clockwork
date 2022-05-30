@@ -27,7 +27,11 @@ class ClockworkMiddleware
 			$response = $this->app[ExceptionHandler::class]->render($request, $e);
 		}
 
-		return $this->app['clockwork.support']->processRequest($request, $response);
+        if ($this->app['clockwork.support']->isCollectingData()) {
+            return $this->app['clockwork.support']->processRequest($request, $response);
+        } else {
+            return $response;
+        }
 	}
 
 	// Record the current request after a response is sent
