@@ -56,7 +56,7 @@ class LaravelDataSource extends DataSource
 		$request->routes         = $this->getRoutes();
 		$request->sessionData    = $this->getSessionData();
 
-		$this->resolveAuthenticatedUser($request);
+//		$this->resolveAuthenticatedUser($request);
 
 		$request->log()->merge($this->log);
 
